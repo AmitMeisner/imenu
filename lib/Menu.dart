@@ -29,7 +29,7 @@ class _MenuState extends State<Menu> {
         (chipList.length-1) * 5,
         (i) => i % 5 == 0
             ? HeadingItem(chipList.elementAt(i~/5))
-            : MessageItem("Mana $i", "Rahiv $i"));
+            : MessageItem("Man $i", "Rahiv $i"));
     return Column(children: <Widget>[
       SizedBox(
           height: 1000,

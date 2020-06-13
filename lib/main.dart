@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:imenu/Menu.dart';
+import 'package:imenu/updateFS.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
 import 'Chips.dart';
@@ -44,7 +45,14 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           children: <Widget>[
             Chips(),
-            Menu(),
+//            Menu(),
+          updateFS(),
+//            RaisedButton(
+//              child: Text('Create Record'),
+//              onPressed: () {
+//                updateFS().createRecord();
+//              },
+//            ),
           ],
 
         )
