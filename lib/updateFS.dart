@@ -76,10 +76,19 @@ class updateFS extends StatelessWidget {
     batch.commit();
   }
 
+  void getData() {
+    db
+        .collection("books")
+        .getDocuments()
+        .then((QuerySnapshot snapshot) {
+      snapshot.documents.forEach((f) => print('${f.data}}'));
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return RaisedButton(
-      child: Text('Create Record'),
+      child: Text('Create Reco'),
       onPressed: () {
         createBatchRecord();
       },
