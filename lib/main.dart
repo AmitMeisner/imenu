@@ -44,9 +44,9 @@ class _MyHomePageState extends State<MyHomePage> {
       body: SingleChildScrollView(
         child: Column(
           children: <Widget>[
-//            Chips(),
+            Chips(),
 //            Menu(),
-          updateFS(),
+//          updateFS(),
 //            RaisedButton(
 //              child: Text('Create Record'),
 //              onPressed: () {

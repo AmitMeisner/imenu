@@ -1,5 +1,6 @@
 {
   "projects": {
-    "default": "imenu-91eb7"
+    "default": "imenu-91eb7",
+    "stage": "imenu-91eb7"
   }
 }
