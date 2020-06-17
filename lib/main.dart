@@ -37,14 +37,20 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   List<String> typeList = [];
+  List<String> typeListHE = [];
   bool loaded = false;
   ItemScrollController itemScrollerController = ItemScrollController();
+  bool isSwitched = true;
+  String hebSuff = "HE";
+
 
   void updatetypeList() async {
     List<String> newTypeList = [];
+    List<String> newTypeListHE = [];
     CollectionReference colRef = Firestore.instance.collection('dishtype');
     await colRef.where("place", isGreaterThan: -1).orderBy('place').getDocuments().then((docSnap) {
       docSnap.documents.forEach((name) {
+        newTypeListHE.add(name.data["nameHE"]);
         newTypeList.add(name.data["name"]);
       });
     }).then((val) {
@@ -52,6 +58,7 @@ class _MyHomePageState extends State<MyHomePage> {
       {
         setState(() {
           typeList = newTypeList;
+          typeListHE = newTypeListHE;
           loaded = true;
         });
       }
@@ -70,6 +77,21 @@ class _MyHomePageState extends State<MyHomePage> {
       return Scaffold(
         appBar: AppBar(
           title: Text(widget.title),
+          actions: <Widget>[
+            Switch(
+              value: isSwitched,
+              onChanged: (value){
+                setState(() {
+                  isSwitched=value;
+                  hebSuff == "" ? hebSuff = "HE" : hebSuff = "";
+                });
+              },
+//              activeTrackColor: Colors.lightBlueAccent,
+//              activeColor: Colors.lightBlueAccent,
+              activeThumbImage: AssetImage('assets/heIcon.png'),
+              inactiveThumbImage: AssetImage('assets/enIcon.png'),
+            )
+          ],
         ),
         body: SingleChildScrollView(
             child: Column(
@@ -77,21 +99,36 @@ class _MyHomePageState extends State<MyHomePage> {
                 if (loaded == true)
                   Column(
                     children: [
-                      Chips(typeList: this.typeList, itemScrollController: itemScrollerController,),
-                      MenuList(typeList: this.typeList, itemScrollController: itemScrollerController),
+                      Chips(
+                        typeListRender: hebSuff == "HE" ? this.typeListHE : this.typeList,
+                        itemScrollController: itemScrollerController
+                      ),
+                      MenuList(
+                          typeList: this.typeList,
+                          typeListHE: this.typeListHE,
+                          hebSuff: hebSuff,
+                          itemScrollController: itemScrollerController
+                      ),
                     ],
                   )
                 else Center(
                   child: Column(
                     children: [
-                      SizedBox(height: MediaQuery.of(context).size.height/3),
+                      SizedBox(height: MediaQuery.of(context).size.height/4),
                       ClipRRect(
                         borderRadius: BorderRadius.circular(20),
-                          child: Image.asset('assets/quattroLogo.jpg')
+                          child: Container(
+                            height: 180,
+                              width: 180,
+                              child: Image.asset(
+                                  'assets/quattroLogo.jpg',
+                              fit: BoxFit.contain,
+                              )
+                          )
                       ),
                       Loading(
                         indicator: BallPulseIndicator(),
-                      size: 100,
+                      size: 150,
                       color: Colors.black
                       ),
                     ],

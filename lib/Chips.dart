@@ -5,10 +5,10 @@ import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
 
 class Chips extends StatefulWidget {
-  final List<String> typeList;
+  final List<String> typeListRender;
   final ItemScrollController itemScrollController;
 
-  const Chips({Key key, this.typeList, this.itemScrollController}) : super(key: key);
+  const Chips({Key key, this.typeListRender, this.itemScrollController}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() => _ChipsState();
@@ -27,13 +27,13 @@ class _ChipsState extends State<Chips> {
             scrollDirection: Axis.horizontal,
             shrinkWrap: true,
             children: List<Widget>.generate(
-              widget.typeList.length,
+              widget.typeListRender.length,
               (int index) {
                 return Padding(
                   padding: const EdgeInsets.all(2.0),
                   child: ChoiceChip(
                     label: Text(
-                        widget.typeList[index],
+                        widget.typeListRender[index],
                             style: TextStyle(fontWeight: FontWeight.bold),
                     ),
                     selected: _value == index,
