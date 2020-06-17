@@ -97,7 +97,9 @@ class TileGroupState extends StatelessWidget {
                   padding: const EdgeInsets.all(2),
                   child:
                   ExpansionTile(
-                    title: Text(snapshot.data.documents[index]["name"+this.hebSuff]),
+                    title: Text(snapshot.data.documents[index]["name"+this.hebSuff],
+                    style: TextStyle(fontWeight: FontWeight.bold,
+                    fontSize: 20)),
                     subtitle: Text(snapshot.data.documents[index]["ingredients"+this.hebSuff]),
                     trailing: Row(
                       mainAxisSize: MainAxisSize.min,
