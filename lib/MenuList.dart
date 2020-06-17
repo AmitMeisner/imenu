@@ -5,9 +5,11 @@ import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
 class MenuList extends StatefulWidget {
   final List<String> typeList;
+  final List<String> typeListHE;
+  final String hebSuff;
   final ItemScrollController itemScrollController;
 
-  const MenuList({Key key, this.typeList, this.itemScrollController}) : super(key: key);
+  const MenuList({Key key, this.typeList, this.itemScrollController, this.typeListHE, this.hebSuff}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() {
@@ -30,9 +32,10 @@ class _MenuListState extends State<MenuList> {
           itemScrollController: widget.itemScrollController,
           itemBuilder: (context, i) {
             final String type = widget.typeList[i];
+            final String typeHE = widget.typeListHE[i];
             return Column(
               children: [
-                Text(type,
+                Text(widget.hebSuff == "" ? type : typeHE,
                     style: TextStyle(
                       fontSize: 28,
                       fontWeight: FontWeight.bold,
@@ -41,7 +44,7 @@ class _MenuListState extends State<MenuList> {
                   thickness: 3,
                   color: Colors.black,
                 ),
-                TileGroupState(type: type),
+                TileGroupState(type: type, hebSuff: widget.hebSuff),
                 SizedBox(height: 15)
               ],
             );
@@ -53,8 +56,9 @@ class _MenuListState extends State<MenuList> {
 
 class TileGroupState extends StatelessWidget {
   final String type;
+  final String hebSuff;
 
-  const TileGroupState({Key key, this.type}) : super(key: key);
+  const TileGroupState({Key key, this.type, this.hebSuff}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -72,8 +76,8 @@ class TileGroupState extends StatelessWidget {
               return Padding(
                   padding: const EdgeInsets.all(2),
                   child: ListTile(
-                    title: Text(snapshot.data.documents[index]["name"]),
-                    subtitle: Text(snapshot.data.documents[index]["ingredients"]),
+                    title: Text(snapshot.data.documents[index]["name"+this.hebSuff]),
+                    subtitle: Text(snapshot.data.documents[index]["ingredients"+this.hebSuff]),
                     trailing: Text(snapshot.data.documents[index]["price"]),
                   ));
             }).toList(),
