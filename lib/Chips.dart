@@ -21,7 +21,7 @@ class _ChipsState extends State<Chips> {
   Widget build(BuildContext context) {
     return Center(
       child: Container(
-          height: 70.0,
+          height: 55.0,
           child:
               ListView(
             scrollDirection: Axis.horizontal,

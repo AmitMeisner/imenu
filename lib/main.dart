@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:imenu/MenuList.dart';
 import 'package:loading/indicator/ball_pulse_indicator.dart';
@@ -42,9 +43,21 @@ class _MyHomePageState extends State<MyHomePage> {
   ItemScrollController itemScrollerController = ItemScrollController();
   bool isSwitched = true;
   String hebSuff = "HE";
+  List<String> message = [""];
+  List<String> messageHE = [""];
 
+  void updateMessage() async { // calling to upstaetypeList who calling setState()
+    List<String> newMessage = [];
+    List<String> newMessageHE = [];
+    CollectionReference colRef = Firestore.instance.collection('user');
+    await colRef.document('1').get().then((doc) {
+      newMessage = List.from(doc.data["message"]);
+      newMessageHE = List.from(doc.data["message"+hebSuff]);
+      updatetypeList(newMessage, newMessageHE);
+    });
+  }
 
-  void updatetypeList() async {
+  void updatetypeList(List<String> newMessage, List<String> newMessageHE) async {
     List<String> newTypeList = [];
     List<String> newTypeListHE = [];
     CollectionReference colRef = Firestore.instance.collection('dishtype');
@@ -57,6 +70,8 @@ class _MyHomePageState extends State<MyHomePage> {
       Future.delayed(const Duration(milliseconds: 2000), ()
       {
         setState(() {
+          message = newMessage;
+          messageHE = newMessageHE;
           typeList = newTypeList;
           typeListHE = newTypeListHE;
           loaded = true;
@@ -68,7 +83,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   void initState() {
-    updatetypeList();
+    updateMessage();
     super.initState();
   }
 
@@ -107,7 +122,9 @@ class _MyHomePageState extends State<MyHomePage> {
                           typeList: this.typeList,
                           typeListHE: this.typeListHE,
                           hebSuff: hebSuff,
-                          itemScrollController: itemScrollerController
+                          itemScrollController: itemScrollerController,
+                        message: message,
+                        messageHE: messageHE,
                       ),
                     ],
                   )
