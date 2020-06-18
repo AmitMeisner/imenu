@@ -13,13 +13,12 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'iMenu Demo',
+      title: 'Quattro iMenu',
       theme: ThemeData(
-        primarySwatch: Colors.lightBlue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       home: MyHomePage(title: 'Quattro iMenu'),
@@ -91,7 +90,11 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
       return Scaffold(
         appBar: AppBar(
-          title: Text(widget.title),
+          title: Text(widget.title,
+          style: TextStyle(
+              color: Colors.white
+          )),
+          backgroundColor: Colors.black87,
           actions: <Widget>[
             Switch(
               value: isSwitched,
@@ -101,8 +104,10 @@ class _MyHomePageState extends State<MyHomePage> {
                   hebSuff == "" ? hebSuff = "HE" : hebSuff = "";
                 });
               },
-//              activeTrackColor: Colors.lightBlueAccent,
-//              activeColor: Colors.lightBlueAccent,
+              activeTrackColor: Colors.white10,
+              activeColor: Colors.white30,
+              inactiveTrackColor: Colors.white10,
+//              activeColor: Colors.grey,
               activeThumbImage: AssetImage('assets/heIcon.png'),
               inactiveThumbImage: AssetImage('assets/enIcon.png'),
             )

@@ -32,9 +32,11 @@ class _ChipsState extends State<Chips> {
                 return Padding(
                   padding: const EdgeInsets.all(2.0),
                   child: ChoiceChip(
+                    selectedColor: Colors.black,
                     label: Text(
                         widget.typeListRender[index],
-                            style: TextStyle(fontWeight: FontWeight.bold),
+                            style: TextStyle(fontWeight: FontWeight.bold,
+                            color: _value == index ? Colors.white : Colors.black),
                     ),
                     selected: _value == index,
                     onSelected: (bool selected) {
